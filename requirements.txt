@@ -1,0 +1,34 @@
+# Core
+torch>=2.6.0
+torchvision>=0.21.0
+numpy
+pandas
+Pillow
+opencv-python
+tqdm
+pycocotools
+
+# OpenAI API
+openai>=1.0.0
+
+# Diffusion models
+diffusers @ git+https://github.com/huggingface/diffusers
+transformers
+accelerate
+safetensors
+huggingface-hub
+
+# Grounding DINO dependencies
+addict
+yapf
+timm
+supervision
+
+# SAM2 dependencies
+hydra-core
+iopath
+
+# Other
+scipy
+matplotlib
+PyYAML

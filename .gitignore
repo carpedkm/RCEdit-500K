@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+checkpoints/
+gdino_checkpoints/
+*.pt
+*.pth
+*.bin
+*.safetensors
+.env
+*.so
+
+# External dependencies (cloned during setup)
+sam2/
+grounding_dino/

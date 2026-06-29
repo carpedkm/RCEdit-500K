@@ -29,7 +29,7 @@ The images provided are:
 2. Second image: Reference image (image 2)
 3. Last image: Target image (the result after editing)
 
-Evaluate the sample using four independent criteria.
+Evaluate the sample using five independent criteria.
 Each criterion must be scored from 0 to 100.
 
 Score meaning for each criterion (0–100):

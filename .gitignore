@@ -2,7 +2,9 @@ __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
+checkpoints
 checkpoints/
+gdino_checkpoints
 gdino_checkpoints/
 *.pt
 *.pth

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCEdit-500K: Reference Completion for Image-Conditioned Image Editing</title>
+  <link rel="stylesheet" href="static/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══════════════ Hero ═══════════════ -->
+<header class="hero">
+  <div class="container">
+    <h1>RCEdit-500K:<br>Reference Completion for Image-Conditioned Image Editing</h1>
+    <div class="venue">ECCV 2026</div>
+    <div class="authors">
+      <strong>Jingxu Zhang</strong><sup>1,2</sup>,
+      <strong>Daneul Kim</strong><sup>3</sup>,
+      <strong>Yueming Pan</strong><sup>2,4</sup>,
+      <strong>Dong Chen</strong><sup>2</sup>,
+      <strong>Kai Qiu</strong><sup>2</sup>,
+      <strong>Yang Liu</strong><sup>2</sup>,
+      <strong>Yifan Yang</strong><sup>2</sup>,
+      <strong>Qi Dai</strong><sup>2</sup>,
+      <strong>Xiaoyan Sun</strong><sup>1*</sup>,
+      <strong>Chong Luo</strong><sup>1,2*</sup>
+    </div>
+    <div class="affiliations">
+      <sup>1</sup>University of Science and Technology of China &nbsp;&nbsp;
+      <sup>2</sup>Microsoft Research Asia &nbsp;&nbsp;
+      <sup>3</sup>Seoul National University &nbsp;&nbsp;
+      <sup>4</sup>Xi'an Jiaotong University
+    </div>
+    <div class="links">
+      <a href="https://arxiv.org/abs/2506.xxxxx">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.5 0A2.5 2.5 0 0 0 2 2.5v11A2.5 2.5 0 0 0 4.5 16h7a2.5 2.5 0 0 0 2.5-2.5v-8L9.5 0h-5zM9 1v3.5A1.5 1.5 0 0 0 10.5 6H14"/></svg>
+        Paper
+      </a>
+      <a href="https://huggingface.co/datasets/carpedkm/RCEdit-500K">
+        &#129303; Dataset
+      </a>
+      <a href="https://github.com/carpedkm/RCEdit-500K">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Code
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ Teaser ═══════════════ -->
+<section id="teaser">
+  <div class="container">
+    <div class="figure">
+      <img src="static/images/teaser.png" alt="RCEdit-500K Teaser" onclick="openLightbox(this)">
+      <div class="caption">RCEdit-500K reformulates ICIE data construction as a reference-completion problem, constructing 477K aligned quadruplets across six edit categories.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Abstract ═══════════════ -->
+<section id="abstract">
+  <div class="container">
+    <h2><span class="section-icon">&#128196;</span>Abstract</h2>
+    <div class="abstract-text">
+      <p>Image-conditioned image editing (ICIE) guides edits with a reference image to convey visual attributes&mdash;such as style, tone, or object identity&mdash;that are difficult to specify through text alone. Despite growing practical demand, no large-scale unified ICIE dataset currently exists in the open-source ecosystem; existing efforts cover only a narrow subset of edit types at small scale, typically constructed via costly forward synthesis.</p>
+      <p>We reformulate ICIE data construction as a <em>reference-completion</em> problem: high-quality text-conditioned image editing (TCIE) datasets already supply the input image, instruction, and edited target, and can be augmented with aligned reference images through type-specific synthesis and lightweight instruction adaptation. Building on this insight, we propose a scalable pipeline equipped with weak-instruction augmentation and five-dimensional VLM-based post-filtering, and use it to construct <strong>RCEdit-500K</strong>&mdash;the first large-scale unified open ICIE dataset comprising 477K quadruplets across six edit categories (add, remove, replace, background, style, alter) with both concrete and abstract reference types.</p>
+      <p>Training on RCEdit-500K consistently improves reference-guided editing: LoRA adaptation on diffusion models yields up to +1.22 average gain, and an autoregressive model without native editing ability acquires competitive ICIE performance, demonstrating that <strong>data availability is the primary bottleneck for open-source ICIE</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Statistics ═══════════════ -->
+<section id="stats">
+  <div class="container">
+    <h2><span class="section-icon">&#128202;</span>Dataset at a Glance</h2>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num">477K</div>
+        <div class="stat-label">Aligned Quadruplets</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Edit Categories</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5-Dim</div>
+        <div class="stat-label">VLM Post-Filtering</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Models Improved</div>
+      </div>
+    </div>
+    <div class="figure">
+      <img src="static/images/fig_data_sta1.png" alt="Dataset Statistics" onclick="openLightbox(this)" style="max-width: 45%; display: inline-block; vertical-align: top;">
+      <img src="static/images/fig_data_sta2.png" alt="Dataset Distribution" onclick="openLightbox(this)" style="max-width: 45%; display: inline-block; vertical-align: top;">
+      <div class="caption">Left: Edit type distribution. Right: Source dataset composition and statistics of RCEdit-500K.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Pipeline ═══════════════ -->
+<section id="pipeline">
+  <div class="container">
+    <h2><span class="section-icon">&#9881;</span>Pipeline</h2>
+    <p class="section-desc">Our reference-completion pipeline converts any TCIE dataset into ICIE training data through four stages: GPT-4o analysis, type-specific reference generation, GPT Image processing (for style/alter), and 5-dimensional VLM-based post-filtering.</p>
+    <div class="figure">
+      <img src="static/images/pipeline.pptx.png" alt="RCEdit-500K Pipeline" onclick="openLightbox(this)">
+      <div class="caption">Overview of the RCEdit-500K data construction pipeline. Given an existing TCIE pair (input, instruction, target), our pipeline synthesizes a compatible reference image through type-specific generation strategies, then applies multi-dimensional quality filtering.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Dataset Examples ═══════════════ -->
+<section id="dataset">
+  <div class="container">
+    <h2><span class="section-icon">&#128444;</span>Dataset Examples</h2>
+    <p class="section-desc">RCEdit-500K covers six edit categories with both concrete references (add, replace, remove, background) and abstract references (style, alter). Click the tabs below to browse examples from each category.</p>
+
+    <div class="dataset-tabs">
+      <div class="dataset-tab active" data-tab="overview">Overview</div>
+      <div class="dataset-tab" data-tab="add">Add</div>
+      <div class="dataset-tab" data-tab="replace">Replace</div>
+      <div class="dataset-tab" data-tab="remove">Remove</div>
+      <div class="dataset-tab" data-tab="background">Background</div>
+      <div class="dataset-tab" data-tab="style">Style</div>
+      <div class="dataset-tab" data-tab="alter">Alter</div>
+    </div>
+
+    <div class="dataset-panel active" id="panel-overview">
+      <div class="figure">
+        <img src="static/images/dataset_samples_single1.png" alt="Dataset Overview" onclick="openLightbox(this)">
+        <div class="caption">Representative samples from RCEdit-500K showing the quadruplet structure: (input, reference, instruction, target) across different edit types.</div>
+      </div>
+    </div>
+
+    <div class="dataset-panel" id="panel-add">
+      <div class="figure">
+        <img src="static/images/dataset_add.png" alt="Add Examples" onclick="openLightbox(this)">
+        <div class="caption"><strong>Add:</strong> Insert an object from the reference image into the input scene. The reference provides a concrete subject that appears in the edited target.</div>
+      </div>
+    </div>
+
+    <div class="dataset-panel" id="panel-replace">
+      <div class="figure">
+        <img src="static/images/dataset_replace.png" alt="Replace Examples" onclick="openLightbox(this)">
+        <div class="caption"><strong>Replace:</strong> Substitute an existing object in the input with the one depicted in the reference image.</div>
+      </div>
+    </div>
+
+    <div class="dataset-panel" id="panel-remove">
+      <div class="figure">
+        <img src="static/images/dataset_remove.png" alt="Remove Examples" onclick="openLightbox(this)">
+        <div class="caption"><strong>Remove:</strong> The reference image indicates which object to remove from the input scene.</div>
+      </div>
+    </div>
+
+    <div class="dataset-panel" id="panel-background">
+      <div class="figure">
+        <img src="static/images/dataset_background.png" alt="Background Examples" onclick="openLightbox(this)">
+        <div class="caption"><strong>Background:</strong> Change the background to match the environment/scene shown in the reference image.</div>
+      </div>
+    </div>
+
+    <div class="dataset-panel" id="panel-style">
+      <div class="figure">
+        <img src="static/images/dataset_style.png" alt="Style Examples" onclick="openLightbox(this)">
+        <div class="caption"><strong>Style:</strong> Transfer the artistic style from the reference to the input image. The reference provides abstract visual attributes.</div>
+      </div>
+    </div>
+
+    <div class="dataset-panel" id="panel-alter">
+      <div class="figure">
+        <img src="static/images/dataset_alter.png" alt="Alter Examples" onclick="openLightbox(this)">
+        <div class="caption"><strong>Alter:</strong> Transfer visual attributes (color, texture, material) from the reference to the subject in the input image.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Results ═══════════════ -->
+<section id="results">
+  <div class="container">
+    <h2><span class="section-icon">&#128200;</span>Quantitative Results</h2>
+    <p class="section-desc">We evaluate on the MultiBanana two-reference benchmark using GPT-4o across five axes: Instruction Alignment (IA), Reference Consistency (RC), Background-Subject Match (BSM), Physical Realism (PR), and Visual Quality (VQ).</p>
+
+    <div class="table-wrapper">
+      <table class="benchmark-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>IA &uarr;</th>
+            <th>RC &uarr;</th>
+            <th>BSM &uarr;</th>
+            <th>PR &uarr;</th>
+            <th>VQ &uarr;</th>
+            <th>Avg &uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-header"><td colspan="7"><em>Closed-source models</em></td></tr>
+          <tr>
+            <td>Nano Banana</td>
+            <td>4.59</td><td>4.00</td><td>5.13</td><td>5.72</td><td>5.44</td><td>4.67</td>
+          </tr>
+          <tr>
+            <td>GPT-Image-1.5</td>
+            <td>5.87</td><td>4.94</td><td>5.40</td><td>5.89</td><td>5.85</td><td class="best">5.51</td>
+          </tr>
+          <tr class="section-header"><td colspan="7"><em>Open-source models</em></td></tr>
+          <tr>
+            <td>Flux-Kontext</td>
+            <td>2.94</td><td>2.80</td><td>2.39</td><td>2.94</td><td>2.81</td><td>2.82</td>
+          </tr>
+          <tr>
+            <td>Omnigen2</td>
+            <td>3.62</td><td>3.28</td><td>4.50</td><td>5.17</td><td>5.05</td><td>3.93</td>
+          </tr>
+          <tr>
+            <td>Qwen-Image-Edit-2509</td>
+            <td>3.60</td><td>4.06</td><td>4.83</td><td>5.61</td><td>5.39</td><td>4.31</td>
+          </tr>
+          <tr>
+            <td>Dreamomni2</td>
+            <td>4.45</td><td>3.61</td><td>5.07</td><td>5.83</td><td>5.80</td><td>4.54</td>
+          </tr>
+          <tr>
+            <td>Qwen-Image-Edit-2511</td>
+            <td>4.15</td><td>4.18</td><td>4.95</td><td>5.68</td><td>5.59</td><td>4.58</td>
+          </tr>
+          <tr>
+            <td>Flux-Klein-4B</td>
+            <td>4.69</td><td>4.01</td><td>5.05</td><td>5.62</td><td>5.57</td><td>4.71</td>
+          </tr>
+          <tr>
+            <td>Flux-Klein-9B</td>
+            <td>4.78</td><td>4.09</td><td>5.01</td><td>5.61</td><td>5.50</td><td class="second">4.75</td>
+          </tr>
+          <tr class="section-header"><td colspan="7"><em>+ RCEdit-500K (Ours)</em></td></tr>
+          <tr>
+            <td>Janus-Pro (baseline)</td>
+            <td>1.02</td><td>1.01</td><td>1.02</td><td>1.04</td><td>1.11</td><td>1.03</td>
+          </tr>
+          <tr class="ours">
+            <td>Janus-Pro + RCEdit-500K</td>
+            <td>4.65</td><td>3.81</td><td>4.52</td><td>5.04</td><td>4.91</td><td>4.43</td>
+          </tr>
+          <tr>
+            <td>Flux-Kontext (baseline)</td>
+            <td>2.94</td><td>2.80</td><td>2.39</td><td>2.94</td><td>2.81</td><td>2.82</td>
+          </tr>
+          <tr class="ours">
+            <td>Flux-Kontext + RCEdit-500K</td>
+            <td>3.52</td><td>3.42</td><td>4.76</td><td>5.50</td><td>5.27</td><td>4.04</td>
+          </tr>
+          <tr>
+            <td>Qwen-Edit-2509 (baseline)</td>
+            <td>3.60</td><td>4.06</td><td>4.83</td><td>5.61</td><td>5.39</td><td>4.31</td>
+          </tr>
+          <tr class="ours">
+            <td>Qwen-Edit-2509 + RCEdit-500K</td>
+            <td>4.08</td><td>4.03</td><td>5.11</td><td>5.86</td><td>5.72</td><td>4.56</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.88em; color:var(--text-light); margin-top:8px;">Training on RCEdit-500K yields consistent gains: +1.22 avg for Flux-Kontext, +0.25 for Qwen-Edit-2509, and transforms Janus-Pro from 1.03 to 4.43.</p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Qualitative ═══════════════ -->
+<section id="qualitative">
+  <div class="container">
+    <h2><span class="section-icon">&#127912;</span>Qualitative Comparison</h2>
+    <p class="section-desc">Visual comparison between base models and their RCEdit-500K fine-tuned counterparts across concrete-object edits (add, replace) and abstract-attribute edits (style, alter).</p>
+    <div class="figure">
+      <img src="static/images/qualitative_comparison4.png" alt="Qualitative Comparison" onclick="openLightbox(this)">
+      <div class="caption">Qualitative comparison of different models. Models labeled "Ours" are trained with RCEdit-500K. After fine-tuning, instruction alignment improves substantially, copy-paste artifacts are reduced, and visual blending between input and reference is resolved.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Ablation ═══════════════ -->
+<section id="ablation">
+  <div class="container">
+    <h2><span class="section-icon">&#128300;</span>Ablation Study</h2>
+    <p class="section-desc">We ablate two key designs: five-dimensional post-filtering and weak-instruction augmentation, and compare against existing ICIE datasets.</p>
+
+    <div class="table-wrapper">
+      <table class="benchmark-table">
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th>IA &uarr;</th>
+            <th>RC &uarr;</th>
+            <th>BSM &uarr;</th>
+            <th>PR &uarr;</th>
+            <th>VQ &uarr;</th>
+            <th>Avg &uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>w/o post-filtering</td>
+            <td>3.60</td><td>3.30</td><td>3.62</td><td>4.20</td><td>4.04</td><td>3.62</td>
+          </tr>
+          <tr>
+            <td>w/o weak instruction</td>
+            <td>3.67</td><td>3.35</td><td>3.84</td><td>4.50</td><td>4.27</td><td>3.74</td>
+          </tr>
+          <tr class="ours">
+            <td>RCEdit-500K (full)</td>
+            <td>3.52</td><td class="best">3.42</td><td class="best">4.76</td><td class="best">5.50</td><td class="best">5.27</td><td class="best">4.04</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:32px; font-size:1.1em; color:var(--primary);">Comparison with Existing ICIE Datasets</h3>
+
+    <div class="table-wrapper">
+      <table class="benchmark-table">
+        <thead>
+          <tr>
+            <th>Training Data</th>
+            <th>IA &uarr;</th>
+            <th>RC &uarr;</th>
+            <th>BSM &uarr;</th>
+            <th>PR &uarr;</th>
+            <th>VQ &uarr;</th>
+            <th>Avg &uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Baseline (no LoRA)</td>
+            <td>2.94</td><td>2.80</td><td>2.39</td><td>2.94</td><td>2.81</td><td>2.82</td>
+          </tr>
+          <tr>
+            <td>ImgEdit</td>
+            <td>3.05</td><td>2.83</td><td>2.58</td><td>3.10</td><td>2.92</td><td>2.92</td>
+          </tr>
+          <tr>
+            <td>AnyEdit (w/o structure)</td>
+            <td>3.02</td><td>2.65</td><td>2.10</td><td>2.57</td><td>2.44</td><td>2.68</td>
+          </tr>
+          <tr>
+            <td>AnyEdit</td>
+            <td>2.17</td><td>1.87</td><td>4.55</td><td>5.15</td><td>4.93</td><td>2.97</td>
+          </tr>
+          <tr class="ours">
+            <td>RCEdit-60K (Ours)</td>
+            <td class="best">3.62</td><td>3.28</td><td>3.78</td><td>4.45</td><td>4.16</td><td>3.68</td>
+          </tr>
+          <tr class="ours">
+            <td>RCEdit-500K (Ours)</td>
+            <td>3.52</td><td class="best">3.42</td><td class="best">4.76</td><td class="best">5.50</td><td class="best">5.27</td><td class="best">4.04</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.88em; color:var(--text-light); margin-top:8px;">Even at matched scale (60K), RCEdit outperforms existing ICIE datasets by a large margin, and performance continues to scale with data size.</p>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════ Citation ═══════════════ -->
+<section id="citation">
+  <div class="container">
+    <h2><span class="section-icon">&#128214;</span>Citation</h2>
+    <div class="bibtex-wrapper">
+      <button class="copy-btn" onclick="copyBibtex()">Copy</button>
+      <pre class="bibtex">@inproceedings{zhang2026rcedit,
+  title={RCEdit-500K: Reference Completion for Image-Conditioned Image Editing},
+  author={Zhang, Jingxu and Kim, Daneul and Pan, Yueming and Chen, Dong and Qiu, Kai and Liu, Yang and Yang, Yifan and Dai, Qi and Sun, Xiaoyan and Luo, Chong},
+  booktitle={European Conference on Computer Vision (ECCV)},
+  year={2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ Footer ═══════════════ -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 RCEdit-500K Authors. Built for ECCV 2026.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════ Lightbox ═══════════════ -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged view">
+</div>
+
+<!-- ═══════════════ Scripts ═══════════════ -->
+<script>
+// Dataset tabs
+document.querySelectorAll('.dataset-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.dataset-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.dataset-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Lightbox
+function openLightbox(el) {
+  const overlay = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = el.src;
+  overlay.classList.add('active');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// Copy BibTeX
+function copyBibtex() {
+  const text = document.querySelector('.bibtex').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+</script>
+
+</body>
+</html>

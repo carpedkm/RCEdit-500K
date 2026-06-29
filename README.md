@@ -1,10 +1,20 @@
-# RCEdit-500K: Reference Completion for Image-Conditioned Image Editing
+<div align="center">
 
-<p align="center">
-  <a href="https://huggingface.co/datasets/carpedkm/RCEdit-500K"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Dataset-yellow"></a>
-  <a href="https://github.com/carpedkm/RCEdit-500K"><img src="https://img.shields.io/badge/GitHub-Code-blue"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green"></a>
-</p>
+# RCEdit-500K
+
+### Reference Completion for Image-Conditioned Image Editing
+
+**ECCV 2026**
+
+[Jingxu Zhang]()<sup>1,2</sup>, [Daneul Kim]()<sup>3</sup>, [Yueming Pan]()<sup>2,4</sup>, [Dong Chen]()<sup>2</sup>, [Kai Qiu]()<sup>2</sup>, [Yang Liu]()<sup>2</sup>, [Yifan Yang]()<sup>2</sup>, [Qi Dai]()<sup>2</sup>, [Xiaoyan Sun]()<sup>1</sup>, [Chong Luo]()<sup>1,2</sup>
+
+<sup>1</sup>University of Science and Technology of China &nbsp; <sup>2</sup>Microsoft Research Asia &nbsp; <sup>3</sup>Seoul National University &nbsp; <sup>4</sup>Xi'an Jiaotong University
+
+[![HuggingFace Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Dataset-yellow)](https://huggingface.co/datasets/carpedkm/RCEdit-500K)
+[![GitHub](https://img.shields.io/badge/GitHub-Code-blue)](https://github.com/carpedkm/RCEdit-500K)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+</div>
 
 This is the official code repository for **"RCEdit-500K: Reference Completion for Image-Conditioned Image Editing"** (ECCV 2026).
 

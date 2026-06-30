@@ -6,12 +6,14 @@
 
 **ECCV 2026**
 
-Jingxu Zhang<sup>1,2</sup>, Daneul Kim<sup>3</sup>, Yueming Pan<sup>2,4</sup>, Dong Chen<sup>2</sup>, Kai Qiu<sup>2</sup>, Yang Liu<sup>2</sup>, Yifan Yang<sup>2</sup>, Qi Dai<sup>2</sup>, Xiaoyan Sun<sup>1</sup>, Chong Luo<sup>1,2</sup>
+Jingxu Zhang<sup>1,2</sup>, Daneul Kim<sup>3</sup>, Yueming Pan<sup>2,4</sup>, Dong Chen<sup>2</sup>, Kai Qiu<sup>2</sup>,  
+Yang Liu<sup>2</sup>, Yifan Yang<sup>2</sup>, Qi Dai<sup>2</sup>, Xiaoyan Sun<sup>1</sup>, Chong Luo<sup>1,2</sup>
 
 <sup>1</sup>University of Science and Technology of China &nbsp; <sup>2</sup>Microsoft Research Asia  
 <sup>3</sup>Seoul National University &nbsp; <sup>4</sup>Xi'an Jiaotong University
 
 [![HuggingFace Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Dataset-yellow)](https://huggingface.co/datasets/carpedkm/RCEdit-500K)
+[![Project Page](https://img.shields.io/badge/%F0%9F%8C%90-Project%20Page-blue)](https://carpedkm.github.io/RCEdit-500K)
 [![GitHub](https://img.shields.io/badge/GitHub-Code-blue)](https://github.com/carpedkm/RCEdit-500K)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
@@ -169,9 +171,19 @@ python multi_reference_part2b_gpt_pool.py \
 
 ### Step 3: Post-Filtering
 
+After completing Steps 2a and 2b, merge the output CSVs before running post-filtering:
+
+```bash
+# Merge reference_output.csv (add/replace/remove/background) and style_alter_output_gpt.csv (style/alter)
+cat outputs/part2a/reference_output.csv > outputs/merged.csv
+tail -n +2 outputs/part2b/style_alter_output_gpt.csv >> outputs/merged.csv
+```
+
+Then run filtering:
+
 ```bash
 python multi_reference_post_filtering.py \
-    --input_csv outputs/part2a/reference_output.csv \
+    --input_csv outputs/merged.csv \
     --data_dir /path/to/images \
     --ref_dir outputs/part2a/references \
     --output_dir outputs/filtering \
@@ -247,9 +259,9 @@ RCEdit-500K/
 If you find this work useful, please cite our paper:
 
 ```bibtex
-@inproceedings{rcedit2026,
+@inproceedings{zhang2026rcedit,
   title={RCEdit-500K: Reference Completion for Image-Conditioned Image Editing},
-  author={},
+  author={Zhang, Jingxu and Kim, Daneul and Pan, Yueming and Chen, Dong and Qiu, Kai and Liu, Yang and Yang, Yifan and Dai, Qi and Sun, Xiaoyan and Luo, Chong},
   booktitle={European Conference on Computer Vision (ECCV)},
   year={2026}
 }

@@ -157,8 +157,6 @@ section > p, section > .section-desc {
 .figure img {
   max-width: 90%;
   height: auto;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
 #teaser .figure img {

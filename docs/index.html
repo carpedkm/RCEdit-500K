@@ -97,6 +97,10 @@
       </div>
     </div>
     <div class="figure">
+      <img src="static/images/edit_type_sunburst_v5.png" alt="Edit Type Sunburst" onclick="openLightbox(this)" style="max-width: 50%; display: block; margin: 0 auto;">
+      <div class="caption">Sunburst chart of edit type and sub-category distribution in RCEdit-500K.</div>
+    </div>
+    <div class="figure">
       <img src="static/images/fig_data_sta1.png" alt="Dataset Statistics" onclick="openLightbox(this)" style="max-width: 45%; display: inline-block; vertical-align: top;">
       <img src="static/images/fig_data_sta2.png" alt="Dataset Distribution" onclick="openLightbox(this)" style="max-width: 45%; display: inline-block; vertical-align: top;">
       <div class="caption">Left: Edit type distribution. Right: Source dataset composition and statistics of RCEdit-500K.</div>
@@ -112,7 +116,7 @@
     <h2><span class="section-icon">&#9881;</span>Pipeline</h2>
     <p class="section-desc">Our reference-completion pipeline converts any TCIE dataset into ICIE training data through four stages: GPT-4o analysis, type-specific reference generation, GPT Image processing (for style/alter), and 5-dimensional VLM-based post-filtering.</p>
     <div class="figure">
-      <img src="static/images/pipeline.pptx.png" alt="RCEdit-500K Pipeline" onclick="openLightbox(this)">
+      <img src="static/images/pipeline.png" alt="RCEdit-500K Pipeline" onclick="openLightbox(this)">
       <div class="caption">Overview of the RCEdit-500K data construction pipeline. Given an existing TCIE pair (input, instruction, target), our pipeline synthesizes a compatible reference image through type-specific generation strategies, then applies multi-dimensional quality filtering.</div>
     </div>
   </div>
@@ -127,8 +131,7 @@
     <p class="section-desc">RCEdit-500K covers six edit categories with both concrete references (add, replace, remove, background) and abstract references (style, alter). Click the tabs below to browse examples from each category.</p>
 
     <div class="dataset-tabs">
-      <div class="dataset-tab active" data-tab="overview">Overview</div>
-      <div class="dataset-tab" data-tab="add">Add</div>
+      <div class="dataset-tab active" data-tab="add">Add</div>
       <div class="dataset-tab" data-tab="replace">Replace</div>
       <div class="dataset-tab" data-tab="remove">Remove</div>
       <div class="dataset-tab" data-tab="background">Background</div>
@@ -136,14 +139,7 @@
       <div class="dataset-tab" data-tab="alter">Alter</div>
     </div>
 
-    <div class="dataset-panel active" id="panel-overview">
-      <div class="figure">
-        <img src="static/images/dataset_samples_single1.png" alt="Dataset Overview" onclick="openLightbox(this)">
-        <div class="caption">Representative samples from RCEdit-500K showing the quadruplet structure: (input, reference, instruction, target) across different edit types.</div>
-      </div>
-    </div>
-
-    <div class="dataset-panel" id="panel-add">
+    <div class="dataset-panel active" id="panel-add">
       <div class="figure">
         <img src="static/images/dataset_add.png" alt="Add Examples" onclick="openLightbox(this)">
         <div class="caption"><strong>Add:</strong> Insert an object from the reference image into the input scene. The reference provides a concrete subject that appears in the edited target.</div>

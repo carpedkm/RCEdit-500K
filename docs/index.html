@@ -5,13 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RCEdit-500K: Reference Completion for Image-Conditioned Image Editing</title>
   <link rel="stylesheet" href="static/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/design.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- ═══════════════ Hero ═══════════════ -->
 <header class="hero">
-  <div class="container">
+  <div class="hero-image-marquee" aria-hidden="true">
+    <div class="marquee-row"><div class="marquee-track">
+      <span><img src="static/images/dataset_add.png" alt=""></span><span><img src="static/images/dataset_replace.png" alt=""></span><span><img src="static/images/dataset_style.png" alt=""></span><span><img src="static/images/dataset_background.png" alt=""></span><span><img src="static/images/dataset_alter.png" alt=""></span><span><img src="static/images/dataset_remove.png" alt=""></span>
+      <span><img src="static/images/dataset_add.png" alt=""></span><span><img src="static/images/dataset_replace.png" alt=""></span><span><img src="static/images/dataset_style.png" alt=""></span><span><img src="static/images/dataset_background.png" alt=""></span><span><img src="static/images/dataset_alter.png" alt=""></span><span><img src="static/images/dataset_remove.png" alt=""></span>
+    </div></div>
+    <div class="marquee-row"><div class="marquee-track">
+      <span><img src="static/images/dataset_style.png" alt=""></span><span><img src="static/images/dataset_remove.png" alt=""></span><span><img src="static/images/dataset_add.png" alt=""></span><span><img src="static/images/dataset_alter.png" alt=""></span><span><img src="static/images/dataset_replace.png" alt=""></span><span><img src="static/images/dataset_background.png" alt=""></span>
+      <span><img src="static/images/dataset_style.png" alt=""></span><span><img src="static/images/dataset_remove.png" alt=""></span><span><img src="static/images/dataset_add.png" alt=""></span><span><img src="static/images/dataset_alter.png" alt=""></span><span><img src="static/images/dataset_replace.png" alt=""></span><span><img src="static/images/dataset_background.png" alt=""></span>
+    </div></div>
+    <div class="marquee-row"><div class="marquee-track">
+      <span><img src="static/images/dataset_background.png" alt=""></span><span><img src="static/images/dataset_alter.png" alt=""></span><span><img src="static/images/dataset_remove.png" alt=""></span><span><img src="static/images/dataset_style.png" alt=""></span><span><img src="static/images/dataset_add.png" alt=""></span><span><img src="static/images/dataset_replace.png" alt=""></span>
+      <span><img src="static/images/dataset_background.png" alt=""></span><span><img src="static/images/dataset_alter.png" alt=""></span><span><img src="static/images/dataset_remove.png" alt=""></span><span><img src="static/images/dataset_style.png" alt=""></span><span><img src="static/images/dataset_add.png" alt=""></span><span><img src="static/images/dataset_replace.png" alt=""></span>
+    </div></div>
+  </div>
+  <div class="hero-image-overlay"></div>
+  <div class="container hero-content">
     <h1>RCEdit-500K:<br>Reference Completion for Image-Conditioned Image Editing</h1>
     <div class="venue">ECCV 2026</div>
     <div class="authors">
@@ -35,7 +53,11 @@
     <div class="links">
       <a href="RCEdit_paper.pdf" download>
         <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.5 0A2.5 2.5 0 0 0 2 2.5v11A2.5 2.5 0 0 0 4.5 16h7a2.5 2.5 0 0 0 2.5-2.5v-8L9.5 0h-5zM9 1v3.5A1.5 1.5 0 0 0 10.5 6H14"/></svg>
-        Paper
+        Paper (High-res) <span class="file-size">59.2MB</span>
+      </a>
+      <a href="RCEdit_paper_lowres.pdf" download>
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.5 0A2.5 2.5 0 0 0 2 2.5v11A2.5 2.5 0 0 0 4.5 16h7a2.5 2.5 0 0 0 2.5-2.5v-8L9.5 0h-5zM9 1v3.5A1.5 1.5 0 0 0 10.5 6H14"/></svg>
+        Paper (Low-res) <span class="file-size">6.2MB</span>
       </a>
       <a href="https://huggingface.co/datasets/carpedkm/RCEdit-500K">
         &#129303; Dataset
